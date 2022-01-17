@@ -62,8 +62,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.round(Math.random() * 2)
 }
 
 
@@ -81,8 +81,16 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inning, num){
+ const total = {
+   Home: 0,
+   Away: 0
+ }
+ for(let i = 0; i <= num; i++){
+  total.Home = total.Home + inning();
+  total.Away = total.Away + inning();
+ }
+ return total;
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,8 +98,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning) {
+  return {
+    Home: inning(),
+    Away: inning()
+  }
 }
 
 
@@ -136,9 +147,31 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, numInning) {
+  let array = []
+  let home = 0;
+  let away = 0;
+  
+  for(let i = 0; i < numInning; i++){
+    const currentInning = getInningScore(inning)
+    
+    home = home + currentInning.Home;
+    away = away + currentInning.Away;
+
+    array.push(`Inning ${i + 1}: Away ${currentInning.Away} - Home ${currentInning.Home}`)
+  }
+
+  if (home === away) {
+    array.push(`This game will requirer extra innings: Away ${currentInning.away} - Home ${currentInning.Home}`)
+  }
+  else{
+    array.push(`Final Score: Away: ${away} - Home ${home}`)
+  }
+return array
+ 
 }
+
+console.log(scoreboard(getInningScore, inning, 9))
 
 
 
